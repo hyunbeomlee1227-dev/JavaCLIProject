@@ -1,12 +1,15 @@
 package com;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("== 명언 앱 ==");
         Scanner scanner = new Scanner(System.in);
-        int wiseSayingNumber = 0;
+        int lastID = 0;
+        List<WiseSaying> wiseSayings = new ArrayList<>();
 
         while (true) {
             System.out.println("명령)");
@@ -23,7 +26,25 @@ public class Main {
                 System.out.print("작가 : ");
                 String wiseSayingAuthor = scanner.nextLine().trim();
 
-                System.out.println(++wiseSayingNumber + "번 명언이 등록되었습니다.");
+                WiseSaying wiseSaying = new WiseSaying();
+
+                wiseSaying.id = ++lastID;
+                wiseSaying.content = wiseSayingContent;
+                wiseSaying.author = wiseSayingAuthor;
+
+                wiseSayings.add(wiseSaying);
+            } else if (cmd.equals("목록")){
+                System.out.println("번호/ 작가 / 명언");
+                System.out.println("----------------------");
+                for (int i = wiseSayings.size() - 1; i >= 0; --i) {
+                    WiseSaying wiseSaying = wiseSayings.get(i);
+
+                    if (wiseSaying == null) {
+                        continue;
+                    }
+
+                    System.out.println("%d / %s / %s".formatted(wiseSaying.id, wiseSaying.author, wiseSaying.content));
+                }
             }
         }
     }
