@@ -16,18 +16,24 @@ public class App {
             System.out.print("명령) ");
             String cmd = scanner.nextLine().trim();
 
-            if (cmd.equals("종료")) {
-                System.out.println("프로그램을 종료합니다.");
+            Rq rq = new Rq(cmd);
 
-                break;
-            } else if (cmd.equals("등록")) {
-                actionWrite();
-            } else if (cmd.equals("목록")) {
-                actionList();
-            } else if (cmd.startsWith("삭제")) {
-                actionDelete(cmd);
-            } else if (cmd.startsWith("수정")) {
-                actionModify(cmd);
+            switch (rq.getActionName()) {
+                case "종료":
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+                case "등록":
+                    actionWrite();
+                    break;
+                case "목록":
+                    actionList();
+                    break;
+                case "삭제":
+                    actionDelete(rq);
+                    break;
+                case "수정":
+                    actionModify(rq);
+                    break;
             }
         }
     }
@@ -58,11 +64,11 @@ public class App {
         }
     }
 
-    void actionDelete(String cmd) {
+    void actionDelete(Rq rq) {
+        int id = rq.getParamAsInt("id", -1);
 
-        int id = CmdSplitId(cmd);
-
-        if (id < 0) {
+        if (id == -1) {
+            System.out.println("숫자를 입력해주세요.");
             return;
         }
 
@@ -77,10 +83,11 @@ public class App {
         System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
     }
 
-    void actionModify(String cmd) {
-        int id = CmdSplitId(cmd);
+    void actionModify(Rq rq) {
+        int id = rq.getParamAsInt("id", -1);
 
-        if (id < 0) {
+        if (id < -1) {
+            System.out.println("숫자를 입력해주세요.");
             return;
         }
 
@@ -101,17 +108,6 @@ public class App {
         modify(wiseSaying, content, author);
 
         System.out.printf("%d번 명언이 수정 되었습니다.\n", id);
-    }
-
-    int CmdSplitId(String cmd) {
-        String[] cmdBits = cmd.split("=");
-
-        if (cmdBits.length < 2 ||  cmdBits[1].isEmpty()) {
-            System.out.println("id를 입력해주세요.");
-            return -1;
-        }
-
-        return Integer.parseInt(cmdBits[1]);
     }
 
     WiseSaying findById(int id) {
