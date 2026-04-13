@@ -1,15 +1,12 @@
 package com.domain.wiseSaying;
 
+import com.AppContext;
 import com.WiseSaying;
 
 import java.util.List;
 
 public class WiseSayingService {
-    private final WiseSayingRepository wiseSayingRepository;
-
-    WiseSayingService() {
-        this.wiseSayingRepository = new WiseSayingRepository();
-    }
+    private final WiseSayingRepository wiseSayingRepository = AppContext.wiseSayingRepository;
 
     public List<WiseSaying> getWiseSayingList() {
         return this.wiseSayingRepository.getWiseSayingList();
