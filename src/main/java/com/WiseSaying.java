@@ -1,11 +1,11 @@
 package com;
 
 public class WiseSaying {
-    private final  int id;
+    private final int id;
     private String content;
     private String author;
 
-    WiseSaying(int id, String content, String author) {
+    public WiseSaying(int id, String content, String author) {
         this.id = id;
         this.content = content;
         this.author = author;
