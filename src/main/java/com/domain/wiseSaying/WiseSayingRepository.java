@@ -20,6 +20,7 @@ public class WiseSayingRepository {
     void modify(WiseSaying wiseSaying, String content, String author) {
         wiseSaying.setContent(content);
         wiseSaying.setAuthor(author);
+        wiseSaying.setModifyDate();
     }
 
     WiseSaying findById(int id) {
