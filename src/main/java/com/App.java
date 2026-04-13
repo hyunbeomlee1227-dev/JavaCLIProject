@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+    private final List<WiseSaying> wiseSayingList = new ArrayList<>();
     int lastID = 0;
-    List<WiseSaying> wiseSayings = new ArrayList<>();
 
     void run() {
         System.out.println("== 명언 앱 ==");
@@ -19,21 +19,13 @@ public class App {
             Rq rq = new Rq(cmd);
 
             switch (rq.getActionName()) {
-                case "종료":
+                case "종료" -> {
                     System.out.println("프로그램을 종료합니다.");
-                    return;
-                case "등록":
-                    actionWrite();
-                    break;
-                case "목록":
-                    actionList();
-                    break;
-                case "삭제":
-                    actionDelete(rq);
-                    break;
-                case "수정":
-                    actionModify(rq);
-                    break;
+                }
+                case "등록" -> actionWrite();
+                case "목록" -> actionList();
+                case "삭제" -> actionDelete(rq);
+                case "수정" -> actionModify(rq);
             }
         }
     }
@@ -47,14 +39,14 @@ public class App {
 
         WiseSaying wiseSaying = new WiseSaying(++lastID, content, author);
 
-        wiseSayings.add(wiseSaying);
+        wiseSayingList.add(wiseSaying);
     }
 
     void actionList() {
         System.out.println("번호/ 작가 / 명언");
         System.out.println("----------------------");
-        for (int i = wiseSayings.size() - 1; i >= 0; --i) {
-            WiseSaying wiseSaying = wiseSayings.get(i);
+        for (int i = wiseSayingList.size() - 1; i >= 0; --i) {
+            WiseSaying wiseSaying = wiseSayingList.get(i);
 
             if (wiseSaying == null) {
                 continue;
@@ -112,9 +104,9 @@ public class App {
 
     WiseSaying findById(int id) {
         WiseSaying wiseSaying = null;
-        for (int i = wiseSayings.size() - 1; i >= 0; --i) {
-            if (wiseSayings.get(i).getId() == id) {
-                wiseSaying = wiseSayings.get(i);
+        for (int i = wiseSayingList.size() - 1; i >= 0; --i) {
+            if (wiseSayingList.get(i).getId() == id) {
+                wiseSaying = wiseSayingList.get(i);
             }
         }
 
@@ -132,7 +124,7 @@ public class App {
     }
 
     void delete(WiseSaying wiseSaying) {
-        wiseSayings.remove(wiseSaying);
+        wiseSayingList.remove(wiseSaying);
     }
 
 }
