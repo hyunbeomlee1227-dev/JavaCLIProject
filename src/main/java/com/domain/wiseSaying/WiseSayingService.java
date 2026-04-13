@@ -2,41 +2,32 @@ package com.domain.wiseSaying;
 
 import com.WiseSaying;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WiseSayingService {
-    int lastId = 0;
-    private  final List<WiseSaying> wiseSayingList = new ArrayList<>();
+    private final WiseSayingRepository wiseSayingRepository;
+
+    WiseSayingService() {
+        this.wiseSayingRepository = new WiseSayingRepository();
+    }
 
     public List<WiseSaying> getWiseSayingList() {
-        return wiseSayingList;
+        return this.wiseSayingRepository.getWiseSayingList();
     }
 
     public void delete(WiseSaying wiseSaying) {
-        wiseSayingList.remove(wiseSaying);
+        this.wiseSayingRepository.delete(wiseSaying);
     }
 
     void modify(WiseSaying wiseSaying, String content, String author) {
-        wiseSaying.setContent(content);
-        wiseSaying.setAuthor(author);
+        this.wiseSayingRepository.modify(wiseSaying, content, author);
     }
 
     WiseSaying findById(int id) {
-        return wiseSayingList.stream()
-                .filter(ws -> ws.getId() == id)
-                .findFirst()
-                .orElseGet(() -> {
-                    System.out.println("해당 아이디는 존재하지 않습니다.");
-                    return null;
-                });
+        return this.wiseSayingRepository.findById(id);
     }
 
     public WiseSaying write(String author, String content) {
-        WiseSaying wiseSaying = new WiseSaying(++lastId, author, content);
-
-        wiseSayingList.add(wiseSaying);
-
-        return wiseSaying;
+        return this.wiseSayingRepository.write(author, content);
     }
 }
