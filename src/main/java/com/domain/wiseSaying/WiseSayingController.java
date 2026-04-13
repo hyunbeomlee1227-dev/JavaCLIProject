@@ -40,7 +40,7 @@ public class WiseSayingController {
                 continue;
             }
 
-            System.out.printf("%d / %s / %s / %s / %s\n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent(), wiseSaying.getCreateDate(), wiseSaying.getModifyDate());
+            System.out.printf("%d / %s / %s / %s / %s\n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent(), wiseSaying.getForPrintCreateDate(), wiseSaying.getForPrintModifyDate());
         }
     }
 

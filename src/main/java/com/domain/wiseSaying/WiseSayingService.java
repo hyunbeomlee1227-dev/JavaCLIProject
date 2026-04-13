@@ -20,7 +20,9 @@ public class WiseSayingService {
     }
 
     void modify(WiseSaying wiseSaying, String content, String author) {
-        this.wiseSayingRepository.modify(wiseSaying, content, author);
+        wiseSaying.setAuthor(author);
+        wiseSaying.setContent(content);
+        this.wiseSayingRepository.save(wiseSaying);
     }
 
     WiseSaying findById(int id) {
@@ -28,6 +30,10 @@ public class WiseSayingService {
     }
 
     public WiseSaying write(String author, String content) {
-        return this.wiseSayingRepository.write(author, content);
+        WiseSaying wiseSaying = new WiseSaying(author, content);
+
+        this.wiseSayingRepository.save(wiseSaying);
+
+        return wiseSaying;
     }
 }

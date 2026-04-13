@@ -2,6 +2,7 @@ package com.domain.wiseSaying;
 
 import com.WiseSaying;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +34,14 @@ public class WiseSayingRepository {
                 });
     }
 
-    public WiseSaying write(String author, String content) {
-        WiseSaying wiseSaying = new WiseSaying(++lastId, author, content);
-
-        wiseSayingList.add(wiseSaying);
-
-        return wiseSaying;
+    public void save(WiseSaying wiseSaying) {
+        if (wiseSaying.isNew()) {
+            wiseSaying.setId(++lastId);
+            wiseSaying.setCreateDate();
+            wiseSaying.setModifyDate();
+            wiseSayingList.add(wiseSaying);
+        } else {
+            wiseSaying.setModifyDate();
+        }
     }
 }
